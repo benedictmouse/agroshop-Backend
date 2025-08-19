@@ -13,12 +13,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-z5^q-8))ol8)uo4orw1v*2+3
 
 DEBUG = env.bool('DEBUG', default=True)
 
-<<<<<<< HEAD
 ALLOWED_HOSTS = ['agroshopp.onrender.com','127.0.0.1', 'localhost']
-=======
-ALLOWED_HOSTS = [ '127.0.0.1', 'localhost']
->>>>>>> d008ac6ede8a54f5fef37406ad38dd2205ece56d
-
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
