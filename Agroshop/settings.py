@@ -85,7 +85,7 @@ else:
             'NAME': 'agroshop',
             'USER': 'postgres',
             'PASSWORD': '1738',
-            'HOST':env('DATABASE_URL', default='localhost'),
+            'HOST':env('DATABASE_URL', default=''),
             'PORT': '5432',
         }
     }
