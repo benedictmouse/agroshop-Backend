@@ -13,7 +13,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-z5^q-8))ol8)uo4orw1v*2+3
 
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['agroshopp.onrender.com','127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['agroshopp.onrender.com','agroshop-kappa.vercel.app','127.0.0.1', 'localhost']
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -37,10 +37,10 @@ INSTALLED_APPS = [
 
 # Middleware
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',  # Move this to the very top
     'django.middleware.security.SecurityMiddleware',
     "whitenoise.middleware.WhiteNoiseMiddleware",
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',  
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -82,9 +82,9 @@ else:
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'agroshop',
-            'USER': 'postgres',
-            'PASSWORD': '1738',
-            'HOST':env('DATABASE_URL', default=''),
+            'USER': 'agroshop_user',
+            'PASSWORD': 'tCReSiwMmOcjJ2B4PW1t9v4dXEwYHLdw',
+            'HOST': 'dpg-d2i2o43e5dus73eatg40-a.oregon-postgres.render.com',
             'PORT': '5432',
         }
     }
@@ -125,12 +125,40 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'users.CustomUser'
 
 # CORS settings
+# CORS settings
 CORS_ALLOWED_ORIGINS = [
+    'https://agroshop-kappa.vercel.app',
     'http://localhost:3000',
     'http://127.0.0.1:3000',
     'https://agroshopp.onrender.com',
 ]
-CORS_ALLOW_CREDENTIALS = True  
+
+# Add these additional settings
+CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = False  # Set to True temporarily for testing, but False for production
+
+# Allow specific headers
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Allow specific methods
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 
 # REST Framework settings
 REST_FRAMEWORK = {
