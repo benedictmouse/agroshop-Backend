@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = env('SECRET_KEY', default='django-insecure-z5^q-8))ol8)uo4orw1v*2+32700dm62hfdjhv^fdoa(swviy&')
 
-DEBUG = env.bool('DEBUG', default=True)
+DEBUG = True
 
 ALLOWED_HOSTS = ['agroshopp.onrender.com','agroshop-kappa.vercel.app','127.0.0.1', 'localhost']
 # Application definition
