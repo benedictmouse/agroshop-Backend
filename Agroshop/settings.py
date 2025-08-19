@@ -208,7 +208,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-z5^q-8))ol8)uo4orw1v*2+3
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool('DEBUG', default=True)
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = ['agroshopp.onrender.com','127.0.0.1', 'localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -324,6 +324,7 @@ AUTH_USER_MODEL = 'users.CustomUser'
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:3000',
     'http://127.0.0.1:3000',
+    'https://agroshopp.onrender.com',
 ]
 CORS_ALLOW_CREDENTIALS = True  
 
