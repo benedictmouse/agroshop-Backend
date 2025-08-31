@@ -1,4 +1,4 @@
-# serializers.py - Fixed version
+# products/serializers.py - KEEP YOUR EXISTING CODE, JUST MODIFY to_representation
 from rest_framework import serializers
 from .models import Products, Category
 from django.contrib.auth import get_user_model
@@ -15,7 +15,7 @@ class ProductSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Products
-        fields = ['id', 'title', 'description', 'price', 'stock', 'category', 'image']  # Removed vendor
+        fields = ['id', 'title', 'description', 'price', 'stock', 'category', 'image']  # Keep same fields
         extra_kwargs = {
             'image': {'required': False, 'allow_null': True}
         }
@@ -44,4 +44,11 @@ class ProductSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         representation = super().to_representation(instance)
         representation['vendor'] = instance.vendor.id if instance.vendor else None
+        
+        # MODIFY THIS PART - make 'image' field return the Cloudinary URL
+        if instance.image:
+            representation['image'] = instance.image.url
+        else:
+            representation['image'] = None
+        
         return representation

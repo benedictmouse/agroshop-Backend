@@ -3,6 +3,9 @@ import dj_database_url
 import os
 import environ
 from datetime import timedelta
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 env = environ.Env()
 environ.Env.read_env()
@@ -14,6 +17,7 @@ SECRET_KEY = env('SECRET_KEY', default='django-insecure-z5^q-8))ol8)uo4orw1v*2+3
 DEBUG = False
 
 ALLOWED_HOSTS = ['agroshopp.onrender.com','agroshop-kappa.vercel.app','127.0.0.1', 'localhost']
+
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -27,6 +31,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
     'corsheaders',
+    'cloudinary',
+    'cloudinary_storage',
     # Local apps
     'users',
     'products',
@@ -71,9 +77,8 @@ TEMPLATES = [
 # WSGI application
 WSGI_APPLICATION = 'Agroshop.wsgi.application'
 
-# Database t
+# Database
 if os.environ.get('DATABASE_URL'):
-
     DATABASES = {
         'default': dj_database_url.parse(os.environ.get('DATABASE_URL'))
     }
@@ -88,6 +93,7 @@ else:
             'PORT': '5432',
         }
     }
+
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
     {
@@ -116,15 +122,30 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 if os.environ.get('RENDER'):
     STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
+# Media files (keep for fallback)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
+# Cloudinary configuration
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': env('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
+}
+
+cloudinary.config( 
+    cloud_name=env('CLOUDINARY_CLOUD_NAME', default=''),
+    api_key=env('CLOUDINARY_API_KEY', default=''),
+    api_secret=env('CLOUDINARY_API_SECRET', default='')
+)
+
+# THIS IS THE KEY LINE THAT WAS MISSING - tells Django to use Cloudinary for media files
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = 'users.CustomUser'
 
-# CORS settings
 # CORS settings
 CORS_ALLOWED_ORIGINS = [
     'https://agroshop-kappa.vercel.app',
