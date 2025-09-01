@@ -131,12 +131,14 @@ CLOUDINARY_STORAGE = {
     'CLOUD_NAME': env('CLOUDINARY_CLOUD_NAME', default=''),
     'API_KEY': env('CLOUDINARY_API_KEY', default=''),
     'API_SECRET': env('CLOUDINARY_API_SECRET', default=''),
+    'secure' : True
 }
 
 cloudinary.config( 
     cloud_name=env('CLOUDINARY_CLOUD_NAME', default=''),
     api_key=env('CLOUDINARY_API_KEY', default=''),
-    api_secret=env('CLOUDINARY_API_SECRET', default='')
+    api_secret=env('CLOUDINARY_API_SECRET', default=''),
+    secure = True
 )
 
 # THIS IS THE KEY LINE THAT WAS MISSING - tells Django to use Cloudinary for media files
